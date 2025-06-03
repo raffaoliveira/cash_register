@@ -325,7 +325,9 @@ function App() {
                       movement.financialOperation === 'E' ? 'bg-green-200' : 'bg-red-200'
                     }
                   >
-                    <TableCell>{formatDateBr(new Date(movement.createdAt))}</TableCell>
+                    <TableCell>
+                      {formatDateBr(new Date(movement.createdAt), true)}
+                    </TableCell>
                     <TableCell>
                       {movement.financialOperation === 'E' ? 'Entrada' : 'Saída'}
                     </TableCell>
