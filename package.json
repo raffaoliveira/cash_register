@@ -1,0 +1,82 @@
+{
+  "name": "cash_register_electron",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "author": "RafaOliveira",
+  "description": "Control cash register for windows",
+  "build": {
+    "directories": {
+      "output": "release/${version}"
+    },
+    "appId": "com.raffaoliveira",
+    "win": {
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": "NSIS",
+      "icon": "iconpath"
+    },
+    "files": [
+      "dist-electron",
+      "dist",
+      "prisma/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/client/**/*",
+      "node_modules/@prisma/engines/migration-engine*",
+      "node_modules/@prisma/engines/query*",
+      "node_modules/@prisma/engines/libquery*"
+    ],
+    "extraResources": [
+      "prisma/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/client/**/*",
+      "node_modules/@prisma/engines/migration-engine*",
+      "node_modules/@prisma/engines/query*",
+      "node_modules/@prisma/engines/libquery*"
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && electron-builder",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "@radix-ui/react-alert-dialog": "^1.1.14",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/vite": "^4.1.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "next-themes": "^0.4.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sonner": "^2.0.4",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.23",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prisma": "^6.8.2",
+    "tw-animate-css": "^1.3.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6",
+    "vite-plugin-electron": "^0.28.6",
+    "vite-plugin-electron-renderer": "^0.14.5"
+  },
+  "main": "dist-electron/main.js"
+}
