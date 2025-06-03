@@ -87,7 +87,7 @@ function App() {
     try {
       const cashRegister = await window.API.openCashRegister({
         openingBalance: Number(openCashRegisterValue),
-        openedAt: new Date(openCashRegisterDate),
+        openedAt: new Date(openCashRegisterDate + 'T00:00:00-03:00'),
       })
       if (cashRegister) {
         setStatus('Aberto')
