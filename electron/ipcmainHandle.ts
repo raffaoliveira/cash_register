@@ -6,6 +6,8 @@ import { CloseCashRegisterUseCase } from './application/use-cases/CloseCashRegis
 import { AddCashMovementUseCase } from './application/use-cases/AddCashMovement'
 import { ClashMovementPrismaRepository } from './infra/repositories/CashMovementPrismaRepository'
 import { FindManyMovementUseCase } from './application/use-cases/FindManyMovementUseCase'
+import { UpdateCashMovementUseCase } from './application/use-cases/DeleteCashMovementUseCase'
+import { updateCashMovementDTO } from 'shared/dtos/updateCashMovement'
 
 const cashRegisterRepository = new CashRegisterPrismaRepository()
 const cashMovementRepository = new ClashMovementPrismaRepository()
@@ -42,4 +44,10 @@ ipcMain.handle('findManyMovements', async (_enevt, data) => {
   const findManyMovements = new FindManyMovementUseCase(cashMovementRepository)
   const cashMovements = await findManyMovements.execute(data)
   return cashMovements
+})
+
+ipcMain.handle('deleteMovement', async (_event, data: string) => {
+  const updateCashMovement = new UpdateCashMovementUseCase(cashMovementRepository)
+  const cashMovement = await updateCashMovement.execute(data)
+  return cashMovement
 })

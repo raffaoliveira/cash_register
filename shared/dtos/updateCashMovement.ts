@@ -1,8 +1,6 @@
-export interface ICashMovement {
+export interface updateCashMovementDTO {
   amount: number
-  cashRegisterId: string
   financialOperation: 'E' | 'S'
   notes?: string
   id: string
-  createdAt: Date
 }

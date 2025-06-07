@@ -2,6 +2,7 @@ import { ipcRenderer, contextBridge } from 'electron'
 import { OpenCashRegisterDTO } from '../shared/dtos/OpenCashRegisterDTO'
 import { CloseCashRegisterDTO } from '../shared/dtos/CloseCashRegisterDTO'
 import { AddCashMovementDTO } from '../shared/dtos/AddCashMovementDTO'
+import { updateCashMovementDTO } from 'shared/dtos/updateCashMovement'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -44,5 +45,9 @@ contextBridge.exposeInMainWorld('API', {
 
   findManyMovement(data: string) {
     return ipcRenderer.invoke('findManyMovements', data)
+  },
+
+  deleteCashMovement(data: updateCashMovementDTO) {
+    return ipcRenderer.invoke('deleteMovement', data)
   },
 })

@@ -42,6 +42,7 @@ import { AddCashMovementDTO } from 'shared/dtos/AddCashMovementDTO'
 import { ICashMovement } from '../shared/interface/ICashMovement'
 import { calculateTotalCash } from './util/cashUtil'
 import { toast } from 'sonner'
+import { PencilIcon, Trash2Icon } from 'lucide-react'
 
 function App() {
   const [status, setStatus] = useState<'Aberto' | 'Fechado'>()
@@ -135,6 +136,18 @@ function App() {
     setListCashMovement((prevList) => [...prevList, cashMovement])
     setMovementDescription('')
     setMovementValue('')
+  }
+
+  async function handleDeleteCashMovement(cashMovementId: string) {
+    const cashMovement = await window.API.deleteCashMovement(cashMovementId)
+    if (cashMovement) {
+      setListCashMovement((prevList) =>
+        prevList.filter((movement) => movement.id !== cashMovementId)
+      )
+      toast.success('Movimento excluído com sucesso.')
+    } else {
+      toast.error('Falha ao excluir movimento.')
+    }
   }
 
   return (
@@ -318,9 +331,9 @@ function App() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {listCashMovement.map((movement, index) => (
+                {listCashMovement.map((movement) => (
                   <TableRow
-                    key={index}
+                    key={movement.id}
                     className={
                       movement.financialOperation === 'E' ? 'bg-green-200' : 'bg-red-200'
                     }
@@ -333,6 +346,37 @@ function App() {
                     </TableCell>
                     <TableCell>R$ {movement.amount.toFixed(2)}</TableCell>
                     <TableCell>{movement.notes}</TableCell>
+                    <TableCell>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            className="cursor-pointer"
+                            variant={'ghost'}
+                            size="icon"
+                          >
+                            <Trash2Icon />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Excluir Movimento?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Deseja realmente excluir movimento{' '}
+                              <span className="font-bold">{movement.notes}</span> do
+                              caixa?
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDeleteCashMovement(movement.id)}
+                            >
+                              Continue
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

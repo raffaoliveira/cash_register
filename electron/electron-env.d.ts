@@ -34,5 +34,7 @@ interface Window {
     addCashMovement(data: AddCashMovementDTO): Promise<CashMovement>
 
     findManyMovement(data: string): Promise<CashMovement[]>
+
+    deleteCashMovement(data: string): Promise<boolean>
   }
 }

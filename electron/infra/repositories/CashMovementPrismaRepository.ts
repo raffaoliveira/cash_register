@@ -40,4 +40,17 @@ export class ClashMovementPrismaRepository implements ICashMovementRepository {
         )
     )
   }
+
+  async delete(cashMovementId: string): Promise<boolean> {
+    try {
+      await prisma.cashMovement.delete({
+        where: {
+          id: cashMovementId,
+        },
+      })
+      return true
+    } catch (error) {
+      throw new Error('Failed to delete movement cash')
+    }
+  }
 }
