@@ -50,4 +50,8 @@ contextBridge.exposeInMainWorld('API', {
   deleteCashMovement(data: updateCashMovementDTO) {
     return ipcRenderer.invoke('deleteMovement', data)
   },
+
+  findAllCashRegisterClosed() {
+    return ipcRenderer.invoke('findAllCashRegisterClosed')
+  },
 })

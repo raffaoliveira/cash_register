@@ -36,5 +36,7 @@ interface Window {
     findManyMovement(data: string): Promise<CashMovement[]>
 
     deleteCashMovement(data: string): Promise<boolean>
+
+    findAllCashRegisterClosed(): Promise<CashRegister[]>
   }
 }

@@ -6,4 +6,5 @@ export interface ICashRegisterRepository {
   close(cashRegister: CloseCashRegisterDTO): Promise<void>
   findOpen(): Promise<CashRegister | null>
   findCashRegisterForDate(date: Date): Promise<boolean>
+  findAllCashRegisterClosed(): Promise<CashRegister[]>
 }

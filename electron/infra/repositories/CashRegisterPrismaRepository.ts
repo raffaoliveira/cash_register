@@ -51,14 +51,35 @@ export class CashRegisterPrismaRepository implements ICashRegisterRepository {
   }
 
   async findCashRegisterForDate(date: Date): Promise<boolean> {
-    const cashExistforDate = await prisma.cashRegister.findFirst({
+    const cashExistForDate = await prisma.cashRegister.findFirst({
       where: {
         openedAt: date,
       },
     })
-    if (cashExistforDate) {
+    if (cashExistForDate) {
       return true
     }
     return false
+  }
+
+  async findAllCashRegisterClosed(): Promise<CashRegister[]> {
+    const allCashRegisterClosed = await prisma.cashRegister.findMany({
+      where: {
+        closedAt: {
+          not: null,
+        },
+      },
+    })
+    const listCashRegister = allCashRegisterClosed.map((cashRegister) => {
+      return new CashRegister(
+        cashRegister.openingBalance,
+        cashRegister.openedAt,
+        cashRegister.closedAt!,
+        cashRegister.closingBalance!,
+        cashRegister.id
+      )
+    })
+
+    return listCashRegister
   }
 }

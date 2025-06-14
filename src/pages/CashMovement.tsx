@@ -42,8 +42,7 @@ import { AddCashMovementDTO } from 'shared/dtos/AddCashMovementDTO'
 import { ICashMovement } from '../../shared/interface/ICashMovement'
 import { calculateTotalCash } from '../util/cashUtil'
 import { toast } from 'sonner'
-import { PencilIcon, Trash2Icon } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Trash2Icon } from 'lucide-react'
 
 export function CashMovement() {
   const [status, setStatus] = useState<'Aberto' | 'Fechado'>()
@@ -96,6 +95,7 @@ export function CashMovement() {
         setCashRegisterId(cashRegister.id)
         setOpeningBalance(cashRegister.openingBalance)
         setOpenedAt(cashRegister.openedAt)
+        setOpenCashRegisterValue('')
       }
     } catch (error) {
       toast.error('Já existe um caixa para essa data')
@@ -301,7 +301,6 @@ export function CashMovement() {
           </Button>
         </CardContent>
       </Card>
-      <Separator />
       <Card>
         <CardContent className="p-4">
           <h2 className="text-lg font-semibold mb-4">Movimento Recente</h2>
