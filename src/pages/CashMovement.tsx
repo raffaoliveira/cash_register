@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select'
-import { Separator } from '../components/ui/separator'
 import {
   Table,
   TableBody,
@@ -112,7 +111,7 @@ export function CashMovement() {
     }
     const cashRegisterClosed = await window.API.closeCashRegister({
       closedAt: new Date(),
-      closingBalance: 500,
+      closingBalance: totalCah,
       id: cashRegisterId,
     })
     if (cashRegisterClosed) {

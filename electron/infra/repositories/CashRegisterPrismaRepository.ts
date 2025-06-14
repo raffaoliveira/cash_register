@@ -82,4 +82,22 @@ export class CashRegisterPrismaRepository implements ICashRegisterRepository {
 
     return listCashRegister
   }
+
+  async getCashRegister(data: string): Promise<CashRegister | null> {
+    const cashRegister = await prisma.cashRegister.findFirst({
+      where: {
+        id: data,
+      },
+    })
+    if (cashRegister) {
+      return new CashRegister(
+        cashRegister.openingBalance,
+        cashRegister.openedAt,
+        cashRegister.closedAt!,
+        cashRegister.closingBalance!,
+        cashRegister.id
+      )
+    }
+    return null
+  }
 }

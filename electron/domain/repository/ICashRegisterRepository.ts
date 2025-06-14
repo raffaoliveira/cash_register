@@ -7,4 +7,5 @@ export interface ICashRegisterRepository {
   findOpen(): Promise<CashRegister | null>
   findCashRegisterForDate(date: Date): Promise<boolean>
   findAllCashRegisterClosed(): Promise<CashRegister[]>
+  getCashRegister(data: string): Promise<CashRegister | null>
 }

@@ -54,4 +54,8 @@ contextBridge.exposeInMainWorld('API', {
   findAllCashRegisterClosed() {
     return ipcRenderer.invoke('findAllCashRegisterClosed')
   },
+
+  getCashRegister(data: string) {
+    return ipcRenderer.invoke('getCashRegister', data)
+  },
 })

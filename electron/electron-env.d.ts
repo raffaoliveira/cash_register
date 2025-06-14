@@ -38,5 +38,7 @@ interface Window {
     deleteCashMovement(data: string): Promise<boolean>
 
     findAllCashRegisterClosed(): Promise<CashRegister[]>
+
+    getCashRegister(data: string): Promise<CashRegister | null>
   }
 }

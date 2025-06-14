@@ -26,11 +26,11 @@ export function CashRegister() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full">
       <h1 className="text-3xl font-bold mb-10">Lista de Caixas</h1>
       <p>Pagina em desenvolvimento</p>
-      <div>
-        <Card className="w-dvh">
+      <div className="w-full max-w-5xl">
+        <Card>
           <CardContent className="p-4">
             <h2 className="text-lg font-semibold mb-4">Registro de caixa</h2>
             <Table>

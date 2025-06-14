@@ -1,10 +1,9 @@
 import { ICashRegisterRepository } from 'electron/domain/repository/ICashRegisterRepository'
 
-export class GetOpenCashRegisterUseCase {
+export class GetCashRegisterUseCase {
   constructor(private cashRegisterRepository: ICashRegisterRepository) {}
-
-  async execute() {
-    const cashRegister = await this.cashRegisterRepository.findOpen()
+  async execute(cashRegisterId: string) {
+    const cashRegister = await this.cashRegisterRepository.getCashRegister(cashRegisterId)
     return cashRegister
   }
 }

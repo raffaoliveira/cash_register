@@ -8,6 +8,7 @@ import { ClashMovementPrismaRepository } from './infra/repositories/CashMovement
 import { FindManyMovementUseCase } from './application/use-cases/FindManyMovementUseCase'
 import { UpdateCashMovementUseCase } from './application/use-cases/DeleteCashMovementUseCase'
 import { FindAllCashRegisterClosedUseCase } from './application/use-cases/FindAllCashRegisterClosedUseCase'
+import { GetCashRegisterUseCase } from './application/use-cases/GetCashRegisterUseCase'
 
 const cashRegisterRepository = new CashRegisterPrismaRepository()
 const cashMovementRepository = new ClashMovementPrismaRepository()
@@ -58,4 +59,10 @@ ipcMain.handle('findAllCashRegisterClosed', async () => {
   )
   const allCashRegisterClosed = await findAllCashRegisterClosed.execute()
   return allCashRegisterClosed
+})
+
+ipcMain.handle('getCashRegister', async (_event, data) => {
+  const getCashRegister = new GetCashRegisterUseCase(cashRegisterRepository)
+  const cashRegister = getCashRegister.execute(data)
+  return cashRegister
 })

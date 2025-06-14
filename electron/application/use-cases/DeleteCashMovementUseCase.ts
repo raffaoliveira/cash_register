@@ -5,7 +5,6 @@ export class UpdateCashMovementUseCase {
 
   async execute(data: string) {
     const cashMovement = await this.CashMovementRepository.delete(data)
-
     return cashMovement
   }
 }

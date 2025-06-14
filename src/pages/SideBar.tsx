@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom'
 export function SideBar() {
   return (
     <div className="h-screen bg-zinc-200 px-5">
-      <header className="flex flex-col gap-6 p-6 bg-zinc-200">
+      <header className="flex flex-col gap-6 p-6">
         <h1 className="text-4xl font-bold">Controle de Caixa</h1>
         <nav className="col-span-2 space-y-4">
           <nav className="flex justify-center gap-6">
