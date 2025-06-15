@@ -2,6 +2,7 @@ import { ICashRegisterRepository } from 'electron/domain/repository/ICashRegiste
 
 export class GetCashRegisterUseCase {
   constructor(private cashRegisterRepository: ICashRegisterRepository) {}
+
   async execute(cashRegisterId: string) {
     const cashRegister = await this.cashRegisterRepository.getCashRegister(cashRegisterId)
     return cashRegister

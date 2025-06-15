@@ -1,6 +1,6 @@
 import { CashRegister } from '../../domain/entities/CashRegister'
 import { ICashRegisterRepository } from 'electron/domain/repository/ICashRegisterRepository'
-import { OpenCashRegisterDTO } from '../../../shared/dtos/OpenCashRegisterDTO'
+import { IOpenCashRegisterDTO } from '../../../shared/dtos/OpenCashRegisterDTO'
 
 export class OpenCashRegisterUseCase {
   constructor(private cashRegisterRepository: ICashRegisterRepository) {}
@@ -8,7 +8,7 @@ export class OpenCashRegisterUseCase {
   async execute({
     openedAt,
     openingBalance,
-  }: OpenCashRegisterDTO): Promise<CashRegister> {
+  }: IOpenCashRegisterDTO): Promise<CashRegister> {
     const existCashOpen = await this.cashRegisterRepository.findOpen()
     const existCashForDate = await this.cashRegisterRepository.findCashRegisterForDate(
       openedAt

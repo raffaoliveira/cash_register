@@ -1,8 +1,8 @@
 import { ipcRenderer, contextBridge } from 'electron'
-import { OpenCashRegisterDTO } from '../shared/dtos/OpenCashRegisterDTO'
-import { CloseCashRegisterDTO } from '../shared/dtos/CloseCashRegisterDTO'
-import { AddCashMovementDTO } from '../shared/dtos/AddCashMovementDTO'
-import { updateCashMovementDTO } from 'shared/dtos/updateCashMovement'
+import { IOpenCashRegisterDTO } from '../shared/dtos/OpenCashRegisterDTO'
+import { ICloseCashRegisterDTO } from '../shared/dtos/CloseCashRegisterDTO'
+import { IAddCashMovementDTO } from '../shared/dtos/AddCashMovementDTO'
+import { IUpdateCashMovementDTO } from 'shared/dtos/UpdateCashMovement'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -27,7 +27,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   // ...
 })
 contextBridge.exposeInMainWorld('API', {
-  openCashRegister(data: OpenCashRegisterDTO) {
+  openCashRegister(data: IOpenCashRegisterDTO) {
     return ipcRenderer.invoke('open-cash', data)
   },
 
@@ -35,11 +35,11 @@ contextBridge.exposeInMainWorld('API', {
     return ipcRenderer.invoke('getOpenCash')
   },
 
-  closeCashRegister(data: CloseCashRegisterDTO) {
+  closeCashRegister(data: ICloseCashRegisterDTO) {
     return ipcRenderer.invoke('closeCashRegister', data)
   },
 
-  addCashMovement(data: AddCashMovementDTO) {
+  addCashMovement(data: IAddCashMovementDTO) {
     return ipcRenderer.invoke('addMovement', data)
   },
 
@@ -47,7 +47,7 @@ contextBridge.exposeInMainWorld('API', {
     return ipcRenderer.invoke('findManyMovements', data)
   },
 
-  deleteCashMovement(data: updateCashMovementDTO) {
+  deleteCashMovement(data: IUpdateCashMovementDTO) {
     return ipcRenderer.invoke('deleteMovement', data)
   },
 

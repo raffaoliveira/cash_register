@@ -1,4 +1,4 @@
-export interface OpenCashRegisterDTO {
+export interface IOpenCashRegisterDTO {
   openingBalance: number
   openedAt: Date
 }

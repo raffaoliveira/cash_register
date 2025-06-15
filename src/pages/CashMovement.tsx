@@ -37,7 +37,7 @@ import {
   AlertDialogTrigger,
 } from '../components/ui/alert-dialog'
 import { formatDateBr } from '../util/dateFormat'
-import { AddCashMovementDTO } from 'shared/dtos/AddCashMovementDTO'
+import { IAddCashMovementDTO } from 'shared/dtos/AddCashMovementDTO'
 import { ICashMovement } from '../../shared/interface/ICashMovement'
 import { calculateTotalCash } from '../util/cashUtil'
 import { toast } from 'sonner'
@@ -126,7 +126,7 @@ export function CashMovement() {
       setValidade(true)
       return
     }
-    const cashMovementDTO: AddCashMovementDTO = {
+    const cashMovementDTO: IAddCashMovementDTO = {
       amount: Number(movementValue),
       cashRegisterId: cashRegisterId,
       financialOperation: movementType,

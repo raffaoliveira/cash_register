@@ -1,10 +1,10 @@
 import { ICashRegisterRepository } from '../../domain/repository/ICashRegisterRepository'
-import { CloseCashRegisterDTO } from '../../../shared/dtos/CloseCashRegisterDTO'
+import { ICloseCashRegisterDTO } from '../../../shared/dtos/CloseCashRegisterDTO'
 
 export class CloseCashRegisterUseCase {
   constructor(private cashRegisterRepository: ICashRegisterRepository) {}
 
-  async execute(closeCashRegisterDTO: CloseCashRegisterDTO): Promise<boolean> {
+  async execute(closeCashRegisterDTO: ICloseCashRegisterDTO): Promise<boolean> {
     try {
       await this.cashRegisterRepository.close(closeCashRegisterDTO)
       return true

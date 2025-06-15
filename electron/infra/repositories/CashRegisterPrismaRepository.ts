@@ -1,25 +1,29 @@
 import { ICashRegisterRepository } from 'electron/domain/repository/ICashRegisterRepository'
 import { prisma } from '../prisma/client'
-import { CloseCashRegisterDTO } from 'shared/dtos/CloseCashRegisterDTO'
+import { ICloseCashRegisterDTO } from 'shared/dtos/CloseCashRegisterDTO'
 import { CashRegister } from '../../domain/entities/CashRegister'
 
 export class CashRegisterPrismaRepository implements ICashRegisterRepository {
   async open(cashRegister: CashRegister): Promise<CashRegister> {
-    const result = await prisma.cashRegister.create({
-      data: {
-        openingBalance: cashRegister.openingBalance,
-        openedAt: cashRegister.openedAt,
-      },
-    })
-    return new CashRegister(
-      result.openingBalance,
-      result.openedAt,
-      result.closedAt ?? undefined,
-      result.closingBalance ?? undefined,
-      result.id
-    )
+    try {
+      const result = await prisma.cashRegister.create({
+        data: {
+          openingBalance: cashRegister.openingBalance,
+          openedAt: cashRegister.openedAt,
+        },
+      })
+      return new CashRegister(
+        result.openingBalance,
+        result.openedAt,
+        result.closedAt ?? undefined,
+        result.closingBalance ?? undefined,
+        result.id
+      )
+    } catch (error) {
+      throw new Error('Error opening new cash register')
+    }
   }
-  async close(cashRegister: CloseCashRegisterDTO): Promise<void> {
+  async close(cashRegister: ICloseCashRegisterDTO): Promise<void> {
     try {
       await prisma.cashRegister.update({
         data: {
@@ -31,73 +35,89 @@ export class CashRegisterPrismaRepository implements ICashRegisterRepository {
         },
       })
     } catch (error) {
-      throw new Error('Erro ao fechar caixa' + error)
+      throw new Error('Error closing cash register')
     }
   }
   async findOpen(): Promise<CashRegister | null> {
-    const cashRegister = await prisma.cashRegister.findFirst({
-      where: { closedAt: null },
-    })
+    try {
+      const cashRegister = await prisma.cashRegister.findFirst({
+        where: { closedAt: null },
+      })
 
-    if (!cashRegister) return null
+      if (!cashRegister) return null
 
-    return new CashRegister(
-      cashRegister.openingBalance,
-      cashRegister.openedAt,
-      cashRegister.closedAt ?? undefined,
-      cashRegister.closingBalance ?? undefined,
-      cashRegister.id
-    )
+      return new CashRegister(
+        cashRegister.openingBalance,
+        cashRegister.openedAt,
+        cashRegister.closedAt ?? undefined,
+        cashRegister.closingBalance ?? undefined,
+        cashRegister.id
+      )
+    } catch (error) {
+      throw new Error('Error finding open cash register')
+    }
   }
 
   async findCashRegisterForDate(date: Date): Promise<boolean> {
-    const cashExistForDate = await prisma.cashRegister.findFirst({
-      where: {
-        openedAt: date,
-      },
-    })
-    if (cashExistForDate) {
-      return true
+    try {
+      const cashExistForDate = await prisma.cashRegister.findFirst({
+        where: {
+          openedAt: date,
+        },
+      })
+      if (cashExistForDate) {
+        return true
+      }
+      return false
+    } catch (error) {
+      throw new Error('Error finding cash register exist for date')
     }
-    return false
   }
 
   async findAllCashRegisterClosed(): Promise<CashRegister[]> {
-    const allCashRegisterClosed = await prisma.cashRegister.findMany({
-      where: {
-        closedAt: {
-          not: null,
+    try {
+      const allCashRegisterClosed = await prisma.cashRegister.findMany({
+        where: {
+          closedAt: {
+            not: null,
+          },
         },
-      },
-    })
-    const listCashRegister = allCashRegisterClosed.map((cashRegister) => {
-      return new CashRegister(
-        cashRegister.openingBalance,
-        cashRegister.openedAt,
-        cashRegister.closedAt!,
-        cashRegister.closingBalance!,
-        cashRegister.id
-      )
-    })
+      })
+      const listCashRegister = allCashRegisterClosed.map((cashRegister) => {
+        return new CashRegister(
+          cashRegister.openingBalance,
+          cashRegister.openedAt,
+          cashRegister.closedAt!,
+          cashRegister.closingBalance!,
+          cashRegister.id
+        )
+      })
 
-    return listCashRegister
+      return listCashRegister
+    } catch (error) {
+      throw new Error('Error finding all cash register closed')
+    }
   }
 
   async getCashRegister(data: string): Promise<CashRegister | null> {
-    const cashRegister = await prisma.cashRegister.findFirst({
-      where: {
-        id: data,
-      },
-    })
-    if (cashRegister) {
-      return new CashRegister(
-        cashRegister.openingBalance,
-        cashRegister.openedAt,
-        cashRegister.closedAt!,
-        cashRegister.closingBalance!,
-        cashRegister.id
-      )
+    try {
+      const cashRegister = await prisma.cashRegister.findFirst({
+        where: {
+          id: data,
+        },
+      })
+      if (cashRegister) {
+        return new CashRegister(
+          cashRegister.openingBalance,
+          cashRegister.openedAt,
+          cashRegister.closedAt!,
+          cashRegister.closingBalance!,
+          cashRegister.id
+        )
+      }
+      return null
+    } catch (error) {
+      throw new Error('Error getting cash register')
     }
-    return null
   }
 }

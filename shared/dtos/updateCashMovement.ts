@@ -1,4 +1,4 @@
-export interface updateCashMovementDTO {
+export interface IUpdateCashMovementDTO {
   amount: number
   financialOperation: 'E' | 'S'
   notes?: string
