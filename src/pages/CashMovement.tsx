@@ -317,7 +317,7 @@ export function CashMovement() {
                 <TableRow
                   key={movement.id}
                   className={
-                    movement.financialOperation === 'E' ? 'bg-green-200' : 'bg-red-200'
+                    movement.financialOperation === 'E' ? 'bg-green-400' : 'bg-red-400'
                   }
                 >
                   <TableCell>
