@@ -1,11 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 import { SideBar } from './pages/SideBar'
 import { CashMovement } from './pages/CashMovement'
 import { CashRegister } from './pages/CashRegister'
 import { About } from './pages/About'
 import { MovementCashRegisterClosedWrapper } from './components/movementCashRegisterClosedWrapper'
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <SideBar />,
